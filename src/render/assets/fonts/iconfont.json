@@ -1,0 +1,23 @@
+{
+  "id": "3294283",
+  "name": "sikong",
+  "font_family": "iconfont",
+  "css_prefix_text": "el-icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "122163",
+      "name": "笑脸",
+      "font_class": "smiling",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "18171243",
+      "name": "附件,曲别针,回形针",
+      "font_class": "annex-full",
+      "unicode": "ea36",
+      "unicode_decimal": 59958
+    }
+  ]
+}

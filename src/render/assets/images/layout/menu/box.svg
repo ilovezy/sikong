@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;}
+	.st1{fill:#999999;}
+</style>
+<title>盒子</title>
+<g id="空白页">
+	<g id="未选中" transform="translate(-793.000000, -343.000000)">
+		<g transform="translate(767.000000, 0.000000)">
+			<g id="盒子" transform="translate(0.000000, 313.000000)">
+				<g transform="translate(26.000000, 29.285714)">
+					<rect id="bg" y="0.7" class="st0" width="30" height="30"/>
+					<g id="盒子icon" transform="translate(1.468750, 0.000000)">
+						<path id="形状结合" class="st1" d="M14,0.8l12,6.4c0.3,0.2,0.5,0.5,0.5,0.9l0,0c0,0,0,0,0,0v15l0,0.1c0,0.4-0.2,0.8-0.5,1
+							l-12,6.4c-0.1,0.1-0.3,0.1-0.4,0.1c-0.1,0-0.3,0-0.4-0.1l-12-6.4c-0.1,0-0.2-0.1-0.2-0.2c-0.3-0.2-0.5-0.5-0.5-0.9v-15l0,0
+							c0,0,0,0,0,0c0-0.4,0.2-0.7,0.5-0.9l12.2-6.4C13.5,0.7,13.8,0.7,14,0.8z M24.7,9.7l-10.3,5.5l0,13l10.3-5.5V9.7z M2.4,9.7
+							v12.9l10.2,5.5v-13L2.4,9.7z M13.6,2.8l-10,5.3l10,5.3l9.9-5.3L13.6,2.8z"/>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>
