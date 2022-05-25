@@ -4,6 +4,8 @@ import {app, protocol, BrowserWindow, Menu, nativeImage, Tray, ipcMain} from 'el
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS_DEVTOOLS} from 'electron-devtools-installer'
 import {stopMailServer} from "./server/event/mailEvent"
+import routes from './render/main/routes'
+const express = require('express')
 
 require('./server/server')
 
@@ -20,12 +22,40 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 async function createWindow() {
+  const app = express()
+  var bodyParser = require('body-parser')
+  app.use(bodyParser.json({
+    limit: '50mb'
+  }))
+  app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true
+  }))
+  // 跨域设置
+  app.all('*', (req, res, next) => {
+    if (req.path !== '/' && !req.path.includes('.')) {
+      res.header('Access-Control-Allow-Credentials', true)
+      res.header('Access-Control-Allow-Origin', req.headers['origin'] || '*')
+      res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+      res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+      res.header('Content-Type', 'application/json;charset=utf-8')
+    }
+    next()
+  })
+  app.use('/', routes)
+  const config = {
+    port: 3618
+  }
+  app.listen(config.port, () => {
+    console.log('server running @ http://localhost:' + config.port)
+  })
+
   // 隐藏菜单栏
   // Menu.setApplicationMenu(null)
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 320,
-    height: 420,
+    width: 1524,
+    height: 868,
     // frame: false,
     center: true,
     titleBarStyle: 'hidden',
@@ -136,8 +166,8 @@ app.on('will-finish-launching', () => {
   app.setAppUserModelId("shop.liaozalie.sikong")
 })
 
-ipcMain.on('login', (event, loginInfo) => {
-  console.log(loginInfo)
+ipcMain.on('login', (event, userInfo) => {
+  console.log(userInfo)
   mainWindow.setMinimumSize(1200, 770)
   mainWindow.setSize(1200, 770)
   mainWindow.setMinimizable(true)

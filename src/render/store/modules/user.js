@@ -20,6 +20,11 @@ const state = {
   kds: sessionStorage.getItem('kds') ? JSON.parse(sessionStorage.getItem('kds')) : [],
   friendList: localStorage.getItem('friendList') ? JSON.parse(localStorage.getItem('friendList')) : [],
   friendApplyList: localStorage.getItem('friendApplyList') ? JSON.parse(localStorage.getItem('friendApplyList')) : [],
+  record: {
+    paths: [],
+    curIdx: -1,
+    catalog: []
+  }
 }
 
 const getters = {
@@ -41,6 +46,7 @@ const getters = {
   lastDate: state => state.lastDate,
   friendList: state => state.friendList,
   friendApplyList: state => state.friendApplyList,
+  record: state => state.record
 }
 
 const mutations = {
@@ -133,6 +139,35 @@ const mutations = {
     localStorage.setItem('friendApplyList', JSON.stringify(list))
     STATE.friendApplyList = list
   },
+  setRecord: (state, params) => {
+    let _record = state.record
+    let { path, catalog, type } = params
+    if (type === 'catalog') { // 点击目录
+      _record.paths.length = _record.curIdx + 1
+      _record.paths.push(path)
+      _record.catalog.length = _record.curIdx + 1
+      _record.catalog.push(catalog)
+      _record.curIdx++
+    } else {
+      let _idx = _record.paths.indexOf(path)
+      if (_idx === -1) { // path不存在历史里分2种情况
+        if (_record.curIdx === _record.paths.length - 1) { // curIdx等于长度时候，是正常点文件
+          _record.paths.push(path)
+          _record.catalog.push(catalog)
+          _record.curIdx++
+        } else { // curIdx不等于长度时候，是回退查看历史，当历史里不存在时，需要清空后面的path
+          _record.paths.length = _record.curIdx + 1
+          _record.paths.push(path)
+          _record.catalog.length = _record.curIdx + 1
+          _record.catalog.push(catalog)
+          _record.curIdx++
+        }
+      } else { // path存在那么就是在历史里，需要将curIdx置为index
+        _record.curIdx = _idx
+      }
+    }
+  }
+
 }
 
 const actions = {
