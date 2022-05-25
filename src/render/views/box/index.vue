@@ -133,8 +133,12 @@ export default {
         content: content
       }
       let data = await getSecretKeyApi(postData)
+      console.log('好他妈奇怪',data)
       if (data.code === '00' && data.data) {
+        console.log("第二次了我草你妈", data.data)
         let {data: result} = await enOrDecryptedApi({decrypted: 1, content: data.data, ks: this.ks})
+        debugger
+        // console.log("33333efdafdasfads", result)
         if (result && result.data) {
           result = JSON.parse(result.data)
           if (result.pcksId) {
@@ -145,6 +149,8 @@ export default {
           } else {
             this.kds = null
           }
+        } else {
+          this.message('加密失败,' + result.msg.code, 'error')
         }
       }
     },
@@ -218,6 +224,7 @@ export default {
       // 获取加密密钥
       let content = JSON.stringify({count: 1})
       let {data} = await enOrDecryptedApi({decrypted: 0, content: content, ks: this.ks})
+      console.log('鹅鹅鹅鹅鹅11111', {data})
       await this.getSecretKey(data.data)
       if (this.kds) {
         let id = this.$md5(genID())

@@ -139,6 +139,16 @@ const mutations = {
     localStorage.setItem('friendApplyList', JSON.stringify(list))
     STATE.friendApplyList = list
   },
+  SET_KSID: (state, data) => {
+    if (data.ksId) {
+      localStorage.setItem('ksId', data.ksId)
+      state.ksId = data.ksId
+    }
+    if (data.ks) {
+      localStorage.setItem('s_key', data.ks)
+      state.ks = data.ks
+    }
+  },
   setRecord: (state, params) => {
     let _record = state.record
     let { path, catalog, type } = params
@@ -278,6 +288,9 @@ const actions = {
     }
     list.unshift(friend)
     commit('SET_NEAR_CONTACTS', {userId: state.userInfo.id, arr: list})
+  },
+  setKsid ({ commit }, data) {
+    commit('SET_KSID', data)
   }
 }
 

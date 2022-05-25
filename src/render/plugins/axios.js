@@ -15,7 +15,7 @@ let config = {
   timeout: 60 * 1000, // Timeout
   withCredentials: true, // Check cross-site Access-Control
 };
-const whiteList = ['qrcode/v2/pc/inquireLoginState']
+const whiteList = ['qrcode/v2/pc/inquireLoginState','/dataKey/requireKd']
 const request = axios.create(config);
 
 request.interceptors.request.use(
