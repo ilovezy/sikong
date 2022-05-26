@@ -222,7 +222,7 @@
   padding: 0 10px;
 }
 .flex-box .size, .flex-box .type{
-  width: 80px;
+  width: 160px;
   height: 60px;
   flex: none;
 }

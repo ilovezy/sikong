@@ -1,24 +1,15 @@
 <template>
   <div class="index-box">
-    <Header @about="about"
-            @encry="dealFile(1)"
+    <Header @encry="dealFile(1)"
             @decry="dealFile(2)"
             @perm="perm">
     </Header>
-<!--    <Header @contact="contact"-->
-<!--            @about="about"-->
-<!--            @encry="dealFile(1)"-->
-<!--            @decry="dealFile(2)"-->
-<!--            @perm="perm">-->
-<!--    </Header>-->
     <Home class="index-home" ref="home"></Home>
-<!--    <Contact ref="contact"></Contact>-->
-    <About ref="about"></About>
     <el-dialog class="mc-dialog" custom-class="veri-hori"
+               :title="'文件' + title"
                :visible.sync="decryShow" top="0" width="460px"
                :close-on-click-modal="false">
       <div class="contact-box">
-        <div class="title">文件{{ title }}</div>
         <div class="form-item">
           <div class="tip">{{ curFile }}</div>
           <el-progress :percentage="percentage" :stroke-width="10"></el-progress>
@@ -28,9 +19,9 @@
       </div>
     </el-dialog>
     <el-dialog class="mc-dialog" custom-class="veri-hori"
-               :visible.sync="permShow" top="0" width="460px">
+               title="权限设置"
+               :visible.sync="permShow" top="0" width="600px">
       <div class="contact-box">
-        <div class="title">权限设置</div>
         <div class="tip">文档权限设置</div>
         <perlist :fileId="fileId" @cancel="permShow = false" :model="true" v-if="permShow"></perlist>
       </div>
@@ -49,8 +40,6 @@ import {
 } from '@/api/box'
 import Header from '../../components/box/header'
 import Home from './home'
-// import Contact from './contact'
-import About from './about'
 import {genID} from '../../utils'
 import perlist from './perlist'
 import {mapGetters} from 'vuex'
@@ -61,8 +50,6 @@ export default {
   components: {
     Header,
     Home,
-    // Contact,
-    About,
     perlist
   },
   data() {
@@ -90,14 +77,6 @@ export default {
     }
   },
   methods: {
-    // // 好友管理弹框
-    // contact() {
-    //   this.$refs.contact.contactShow = true
-    // },
-    // 关于弹框
-    about() {
-      this.$refs.about.aboutShow = true
-    },
     // 获取fileId及加解密状态
     async getFileId() {
       let _home = this.$refs.home
@@ -133,24 +112,15 @@ export default {
         content: content
       }
       let data = await getSecretKeyApi(postData)
-      console.log('好他妈奇怪',data)
       if (data.code === '00' && data.data) {
-        console.log("第二次了我草你妈", data.data)
-        let {data: result} = await enOrDecryptedApi({decrypted: 1, content: data.data, ks: this.ks})
-        debugger
-        // console.log("33333efdafdasfads", result)
-        if (result && result.data) {
-          result = JSON.parse(result.data)
-          if (result.pcksId) {
-            this.$store.dispatch("setKsid", {ksId: result.pcksId, ks: result.pcks});
-          }
-          if (result.kds.length) {
-            this.kds = result.kds[0]
-          } else {
-            this.kds = null
-          }
+        var result = data.data
+        if (result.pcksId) {
+          this.$store.dispatch("setKsid", {ksId: result.pcksId, ks: result.pcks});
+        }
+        if (result.kds.length) {
+          this.kds = result.kds[0]
         } else {
-          this.message('加密失败,' + result.msg.code, 'error')
+          this.kds = null
         }
       }
     },
@@ -203,22 +173,15 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            // this.toDecry()
             this.burst(kd, 'decry')
           }).catch(() => {
             return
           })
           return
         }
-        // this.toDecry()
         this.burst(kd, 'decry')
       }
     },
-    // 解密
-    // async toDecry() {
-    //   let kd = await this.decry()
-    //   this.burst(kd, 'decry')
-    // },
     // 加密
     async encry() {
       // 获取加密密钥
@@ -395,30 +358,9 @@ export default {
   flex-direction: column;
 }
 
-.contact-box {
-  width: 460px;
-  padding: 30px 20px;
-  box-sizing: border-box;
-  background-color: #f5f6f7;
-  box-shadow: 0px 10px 24px 0px rgba(46, 52, 55, 0.32);
-  border-radius: 6px;
-  border: solid 1px #d5d8dc;
-}
-
-.title {
-  font-family: MicrosoftYaHei-Bold;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 24px;
-  letter-spacing: 1px;
-  color: #50607d;
-  text-align: center;
-}
-
 .tip {
-  font-family: MicrosoftYaHei;
   font-size: 16px;
   color: #333333;
-  margin: 30px 0 12px;
+  margin-bottom: 15px;
 }
 </style>

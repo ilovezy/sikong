@@ -4,6 +4,7 @@ import {
 } from '@/utils'
 import {post} from "@/plugins/axios"
 
+// 这四个登录的接口，已经不用了
 // 获取登录信息
 export const checkLoginApi = (params = {}) => javaAjax({
   url: 'qrcode/v2/pc/checkLogin',
@@ -28,66 +29,35 @@ export const checkStateApi = (params = {}) => javaAjax({
   method: 'post',
   params: params
 })
+// 这四个登录的接口，已经不用了
+
+
 // 获取加密密钥
-// export const getSecretKeyApi = (params = {}) => javaAjax({
-//   url: 'dataKey/requireKd',
-//   method: 'post',
-//   params: params
-// })
 export const getSecretKeyApi = (data) => post('/dataKey/requireKd', data)
 
-
 // 上报密钥关系
-export const submitFileKdRelationApi = (params = {}) => javaAjax({
-  url: 'dataKey/submitFileKdRelation',
-  method: 'post',
-  params: params
-})
+export const submitFileKdRelationApi = (data) => post('/dataKey/submitFileKdRelation', data)
 
 // 获取解密密钥
-export const requireKdByFileIdApi = (params = {}) => javaAjax({
-  url: 'dataKey/requireKdByFileId',
-  method: 'post',
-  params: params
-})
+export const requireKdByFileIdApi = (data) => post('/dataKey/requireKdByFileId', data)
+
 // 获取解密密钥 批量
-export const requireKdsByFileIdsApi = (params = {}) => javaAjax({
-  url: 'dataKey/requireKdsByFileIds',
-  method: 'post',
-  params: params
-})
+export const requireKdsByFileIdsApi = (data) => post('/dataKey/requireKdsByFileIds', data)
+
 // 获取通讯录列表
-export const getContactListApi = (params = {}) => javaAjax({
-  url: 'addressBook/v2/getAddressBookList',
-  method: 'post',
-  params: params
-})
+export const getContactListApi = (data) => post('/addressBook/v2/getAddressBookList', data)
+
 // 添加通讯录
-export const addressBookApi = (params = {}) => javaAjax({
-  url: 'addressBook/v2/addAddressBook',
-  method: 'post',
-  params: params
-})
+export const addressBookApi = (data) => post('/addressBook/v2/addAddressBook', data)
+
 // 修改通讯录
-export const updateAddressBookApi = (params = {}) => javaAjax({
-  url: 'addressBook/v2/updateAddressBook',
-  method: 'post',
-  params: params
-})
+export const updateAddressBookApi = (data) => post('/addressBook/v2/updateAddressBook', data)
+
 // 删除通讯录
-export const deleteAddressBookApi = (params = {}) => javaAjax({
-  url: 'addressBook/v2/deleteAddressBook',
-  method: 'post',
-  params: params
-})
+export const deleteAddressBookApi = (data) => post('/addressBook/v2/deleteAddressBook', data)
+
 // 完全控制
-export const addReceiversApi = (params = {}) => javaAjax({
-  url: 'expand/addReceivers',
-  method: 'post',
-  params: params
-})
-export const listReceiversApi = (params = {}) => javaAjax({
-  url: 'expand/listReceivers',
-  method: 'post',
-  params: params
-})
+export const addReceiversApi = (data) => post('/expand/addReceivers', data)
+
+export const listReceiversApi = (data) => post('/expand/listReceivers', data)
+

@@ -267,13 +267,13 @@ const actions = {
   getFriendApplyList({commit, state}, phone) {
     findFriendApplyByPhone({phone: phone ? phone : state.userInfo.phone}).then(res => {
       console.log('更新好友申请列表')
-      commit('SET_FRIEND_APPLY_LIST', res.data.list)
+      commit('SET_FRIEND_APPLY_LIST', res.data.list || [])
     })
   },
   getFriendList({commit, state}, phone) {
     getAddressBookList({phone: phone ? phone : state.userInfo.phone}).then(res => {
       console.log('更新通讯录')
-      commit('SET_FRIEND_LIST', res.data.list)
+      commit('SET_FRIEND_LIST', res.data.list || [])
     })
   },
   addOrUpdateNearContactList({commit, state}, friend) {
